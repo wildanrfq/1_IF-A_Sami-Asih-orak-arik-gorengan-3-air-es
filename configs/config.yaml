@@ -1,0 +1,43 @@
+# Konfigurasi utama proyek RFM + K-Means
+seed: 42
+
+paths:
+  raw_xlsx: data/raw/Online Retail.xlsx
+  raw_csv: data/raw/online_retail.csv
+  processed_dir: data/processed
+  figures_dir: reports/figures
+  tables_dir: reports/tables
+  models_dir: models
+
+sampling:
+  enabled: true
+  target_rows: 50000        # sampel 10.000 - 100.000 baris transaksi
+  by_customer: true         # sampling per CustomerID (seluruh transaksi pelanggan ikut)
+
+cleaning:
+  drop_missing_customer: true
+  drop_duplicates: true
+  drop_cancellations: true  # InvoiceNo berawalan huruf C
+  drop_invalid_values: true # Quantity <= 0 atau UnitPrice <= 0
+  drop_non_product: true    # POST, D, M, BANK CHARGES, dst. (cek manual dulu di notebook 02)
+  non_product_codes: [POST, D, M, DOT, CRUK, BANK CHARGES, PADS, AMAZONFEE, S, B, C2]
+
+rfm:
+  reference_offset_days: 1  # tanggal acuan = tanggal transaksi terakhir + 1 hari
+
+preprocessing:
+  log_transform: true       # log1p untuk mengurangi skewness
+  scaler: standard          # StandardScaler
+
+modeling:
+  k_min: 2                  # rentang pencarian k untuk elbow/silhouette
+  k_max: 10
+  k_candidates: [3, 4, 5, 6] # k yang boleh dipilih (target SMART: 3 sampai 6)
+  n_init: 10
+  max_iter: 300
+
+evaluation:
+  min_silhouette: 0.4
+  max_davies_bouldin: 1.0
+  min_cluster_pct: 5.0
+  stability_seeds: [1, 7, 21, 42, 99]
