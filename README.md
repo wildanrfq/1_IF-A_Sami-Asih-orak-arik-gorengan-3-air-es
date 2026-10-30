@@ -3,7 +3,7 @@
 Proyek UTS **Data Science** - Program Studi Informatika, UPN "Veteran" Yogyakarta (2026).
 Dosen pengampu: Dhimas Arief Dharmawan.
 
-**Tim**
+**Tim (Kelompok 1)**
 1. Wildan Rifqi Prambudi (123240060)
 2. Muhammad Fariel Zaky Faheza (123240077)
 3. Shafiq Shidqi Azizi (123240085)
